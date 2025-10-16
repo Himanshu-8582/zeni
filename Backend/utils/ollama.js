@@ -67,7 +67,8 @@ const getAPIresponse = async (prompt) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "llama2",
-        messages: [{ role: "user", message: prompt }],
+        // messages: [{ role: "user", message: prompt }],
+        prompt,
         stream: true, // streaming mode
       }),
     });
