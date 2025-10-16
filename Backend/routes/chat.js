@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/test", async (req, res) => {
     try {
         const thread = new Thread({
-            threadId: "xyz",
+            threadId: "abc",
             title: "Test Thread",
         });
         const response = await thread.save();
@@ -62,43 +62,6 @@ router.delete("/delete/:threadId", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch threads" });
     }
 })
-
-
-
-// router.post("/chat", async(req,res)=> {
-//     const { threadId, message } = req.body;
-
-//     if (!threadId || !message) {
-//         return res.status(400).json({ error: "threadId and message are required" });
-//     }
-
-//     try {
-//         const thread = await Thread.findOne({ threadId });
-
-//         if (!thread) {
-//             thread = new Thread({
-//                 threadId,
-//                 title: message,
-//                 messages: [{ role: 'user', content: message }]
-//             });
-//         } else {
-//             thread.messages.push({ role: 'user', content: message });
-//         }
-
-//         const assistantReply = await getAPIresponse(message);
-//         console.log("Assistant Reply:", assistantReply);
-//         thread.messages.push({ role: 'assistant', content: assistantReply });
-//         thread.updatedAt = Date.now();
-
-//         await thread.save();
-        
-//         res.json({ reply: assistantReply });
-        
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({ error: "Failed to fetch threads" });
-//     }
-// })
 
 router.post("/chat", async (req, res) => {
     const { threadId, message } = req.body;
