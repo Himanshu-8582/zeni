@@ -40,7 +40,7 @@ router.get("/thread/:threadId", async (req, res) => {
         if (!thread) {
             return res.status(404).json({ error: "Thread not found" });
         }
-        res.json(thread.message);
+        res.json(thread.messages);
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Failed to fetch threads" });
