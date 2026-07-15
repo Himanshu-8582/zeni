@@ -1,6 +1,6 @@
 import express from 'express';
 import Thread from '../models/thread.js';
-import getAPIresponse from '../utils/ollama.js';
+import getAPIresponse from '../utils/langGraph.js';
 
 const router = express.Router();
 
@@ -87,8 +87,8 @@ router.post("/chat", async (req, res) => {
         }
 
         // Get assistant reply
-        const assistantReply = await getAPIresponse(message);
-        console.log("Assistant Reply:", assistantReply);
+        const assistantReply = await getAPIresponse(message,threadId);
+        // console.log("Assistant Reply:", assistantReply);
 
         // Add assistant reply to thread
         thread.messages.push({ role: 'assistant', content: assistantReply });
