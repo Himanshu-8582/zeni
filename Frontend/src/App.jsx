@@ -12,16 +12,25 @@ function App() {
   const [currThreadId, setCurrThreadId] = useState(uuidv1()); // state to hold current thread id
   const [prevChat, setPrevChat] = useState([]); // state to hold previous chat of current thread threads
   const [newChat, setNewChat] = useState(true); // state to indicate if new chat is started
-  const [allThreads,setAllThreads] = useState([]); // state to hold all threads
+  const [allThreads, setAllThreads] = useState([]); // state to hold all threads
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const providerValue = {
-    prompt, setPrompt,
-    reply, setReply,
-    currThreadId, setCurrThreadId,
-    newChat, setNewChat,
-    prevChat, setPrevChat,
-    allThreads, setAllThreads
-  };                                      // passing value to context
+    prompt,
+    setPrompt,
+    reply,
+    setReply,
+    currThreadId,
+    setCurrThreadId,
+    newChat,
+    setNewChat,
+    prevChat,
+    setPrevChat,
+    allThreads,
+    setAllThreads,
+    isSidebarOpen,
+    setIsSidebarOpen,
+  };                                 // passing value to context
 
 
   return (

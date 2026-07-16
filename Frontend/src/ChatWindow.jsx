@@ -6,7 +6,17 @@ import {ScaleLoader} from 'react-spinners';
 
 
 function ChatWindow() {
-  const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChat, setNewChat} = useContext(MyContext); // consuming value from context
+  const {
+    prompt,
+    setPrompt,
+    reply,
+    setReply,
+    currThreadId,
+    setPrevChat,
+    setNewChat,
+    isSidebarOpen,
+    setIsSidebarOpen,
+  } = useContext(MyContext); // consuming value from context
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -63,6 +73,10 @@ function ChatWindow() {
   return (
     <div className="chatWindow">
       <div className="navbar">
+        <i
+          className="fa-solid fa-bars menuIcon"
+          onClick={() => setIsSidebarOpen(true)}
+        ></i>
         <span>
           Zeni.AI<i className="fa-solid fa-chevron-down"></i>
         </span>

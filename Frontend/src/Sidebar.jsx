@@ -4,7 +4,18 @@ import './Sidebar.css'
 import { v1 as uuidv1 } from "uuid";
 
 function Sidebar() {
-  const { allThreads, setAllThreads, currThreadId, setCurrThreadId, setNewChat, setPrompt, setReply, setPrevChat} = useContext(MyContext); // getting all threads from context
+  const {
+    allThreads,
+    setAllThreads,
+    currThreadId,
+    setCurrThreadId,
+    setNewChat,
+    setPrompt,
+    setReply,
+    setPrevChat,
+    isSidebarOpen,
+    setIsSidebarOpen,
+  } = useContext(MyContext); // getting all threads from context
   
   const getAllThreads = async () => {
     try {
@@ -72,40 +83,54 @@ function Sidebar() {
   }
   
   return (
-    <section className="sidebar">
-      {/* new Chat Button */}
-      <button className="newChatBtn" onClick={createNewChat}>
-        <img src="src/assets/blacklogo.png" alt="gpt-logo" className="logo" />
-        <span>
-          <i className="fa-solid fa-pen-to-square"></i>
-        </span>
-      </button>
+    <>
+      {isSidebarOpen && (
+        <div
+          className="sidebarOverlay"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+      
+      <section className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
+        <i
+          className="fa-solid fa-xmark closeIcon"
+          onClick={() => setIsSidebarOpen(false)}
+        ></i>
 
-      {/* history */}
-      <ul className="history">
-        {allThreads?.map((thread, idx) => (
-          <li
-            key={thread.threadId}
-            onClick={() => changeThread(thread.threadId)}
-            className={thread.threadId === currThreadId ? "highlighted" : " "}
-          >
-            {thread.title}
-            <i
-              className="fa-solid fa-trash"
-              onClick={(e) => {
-                e.stopPropagation(); //Stop event bubbling
-                deleteThread(thread.threadId);
-              }}
-            ></i>
-          </li>
-        ))}
-      </ul>
+        {/* new Chat Button */}
+        <button className="newChatBtn" onClick={createNewChat}>
+          <img src="src/assets/blacklogo.png" alt="gpt-logo" className="logo" />
+          <span>
+            <i className="fa-solid fa-pen-to-square"></i>
+          </span>
+        </button>
 
-      {/* sign-up */}
-      <div className="sign">
-        <p>By Himanshu &hearts;</p>
-      </div>
-    </section>
+        {/* history */}
+        <ul className="history">
+          {allThreads?.map((thread, idx) => (
+            <li
+              key={thread.threadId}
+              onClick={() => changeThread(thread.threadId)}
+              className={thread.threadId === currThreadId ? "highlighted" : " "}
+            >
+              {thread.title}
+              <i
+                className="fa-solid fa-trash"
+                onClick={(e) => {
+                  e.stopPropagation(); //Stop event bubbling
+                  deleteThread(thread.threadId);
+                }}
+              ></i>
+            </li>
+          ))}
+        </ul>
+
+        {/* sign-up */}
+        <div className="sign">
+          <p>By Himanshu &hearts;</p>
+        </div>
+      </section>
+    </>
   );
 }
 
