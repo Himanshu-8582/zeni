@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import chatRoutes from './routes/chat.js';
 import cors from 'cors';
+import job from "./utils/cron.js";
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use("/api", chatRoutes);
 app.listen(PORT, () => {
   console.log("Zeni backend running on port 5000")
   connectDB();
+  if (process.env.NODE_ENV === "production") job.start();
 });
 
 const connectDB = async () => {
