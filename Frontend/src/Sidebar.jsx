@@ -72,44 +72,41 @@ function Sidebar() {
   }
   
   return (
-      <section className="sidebar">
-        {/* new Chat Button */}
-        <button onClick={createNewChat}>
-          <img src="src/assets/blacklogo.png" alt="gpt-logo" className='logo'/>
-          <span><i className="fa-solid fa-pen-to-square"></i></span>
-        </button>
+    <section className="sidebar">
+      {/* new Chat Button */}
+      <button className="newChatBtn" onClick={createNewChat}>
+        <img src="src/assets/blacklogo.png" alt="gpt-logo" className="logo" />
+        <span>
+          <i className="fa-solid fa-pen-to-square"></i>
+        </span>
+      </button>
 
+      {/* history */}
+      <ul className="history">
+        {allThreads?.map((thread, idx) => (
+          <li
+            key={thread.threadId}
+            onClick={() => changeThread(thread.threadId)}
+            className={thread.threadId === currThreadId ? "highlighted" : " "}
+          >
+            {thread.title}
+            <i
+              className="fa-solid fa-trash"
+              onClick={(e) => {
+                e.stopPropagation(); //Stop event bubbling
+                deleteThread(thread.threadId);
+              }}
+            ></i>
+          </li>
+        ))}
+      </ul>
 
-        {/* history */}
-        <ul className='history'>
-        {
-          allThreads?.map((thread,idx) => (
-            <li key={idx}
-              onClick={() => changeThread(thread.threadId)}
-              className={thread.threadId===currThreadId?"highlighted":" "}
-            >
-              {thread.title}
-              <i
-                className="fa-solid fa-trash"
-                onClick={(e) => {
-                  e.stopPropagation();  //Stop event bubbling
-                  deleteThread(thread.threadId);
-                }}
-              >
-
-              </i>
-            </li>
-          ))
-          }
-        </ul>
-
-        {/* sign-up */}
-        <div className="sign">
-          <p>By Himanshu &hearts;</p>
-        </div>
-
-      </section>
-  )
+      {/* sign-up */}
+      <div className="sign">
+        <p>By Himanshu &hearts;</p>
+      </div>
+    </section>
+  );
 }
 
 export default Sidebar;
