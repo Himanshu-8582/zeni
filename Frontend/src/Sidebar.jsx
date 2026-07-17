@@ -3,6 +3,8 @@ import { MyContext } from './MyContext.jsx';
 import './Sidebar.css'
 import { v1 as uuidv1 } from "uuid";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Sidebar() {
   const {
     allThreads,
@@ -19,7 +21,7 @@ function Sidebar() {
   
   const getAllThreads = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/thread");
+      const response = await fetch(`${API_URL}/api/thread`);
       const res = await response.json();
       
       const filteredData = res.map(thread => (
@@ -53,7 +55,7 @@ function Sidebar() {
     setCurrThreadId(newThreadId);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/thread/${newThreadId}`);
+      const response = await fetch(`${API_URL}/api/thread/${newThreadId}`);
       const res = await response.json();
       console.log(res);
       setPrevChat(res);
@@ -66,7 +68,7 @@ function Sidebar() {
 
   const deleteThread = async (threadId)=> {
     try {
-      const response = await fetch(`http://localhost:5000/api/delete/${threadId}`, { method: "DELETE" });
+      const response = await fetch(`${API_URL}/api/delete/${threadId}`, { method: "DELETE" });
       const res = await response.json();
       console.log(res);
 
