@@ -15,6 +15,10 @@ const PORT = 5000;
 
 app.use(express.json());
 
+app.use('/health', (req,res) => {
+  return res.status(200).json({ ok: true });
+})
+
 app.use("/api", chatRoutes);
 
 app.listen(PORT, () => {

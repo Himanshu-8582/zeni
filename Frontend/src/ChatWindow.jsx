@@ -2,7 +2,12 @@ import './ChatWindow.css'
 import Chat from './Chat.jsx'
 import { MyContext } from './MyContext.jsx';
 import { useContext,useState,useEffect, use } from 'react';
-import {ScaleLoader} from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
+import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 
 
 function ChatWindow() {
@@ -26,21 +31,16 @@ function ChatWindow() {
     console.log("Prompt: ", prompt);
     console.log("Current Thread ID: ", currThreadId);
 
-
-    const option = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify( {
-        message: prompt,
-        threadId: currThreadId
-      })
-    };
     try {
-      const response = await fetch('http://localhost:5000/api/chat', option);
-      const res=await response.json();
-      console.log("Response: ", res);
+      const response = await axios.post(`${API_URL}/api/chat`, {
+        message: prompt,
+        threadId: currThreadId,
+      });
+
+      const res = response.data;
+
+      console.log("Response:", res);
+
       setReply(res.reply);
     }catch(err) {
       console.error("Error while fetching reply: ", err);
